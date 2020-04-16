@@ -1,9 +1,11 @@
 const express = require('express');
 const cors = require('cors');
-const morgan = require('morgan');
+//const morgan = require('morgan');
+const logger = require('./middleware/logger');
+const usersRouter = require('./users/userRouter');
+
 const server = express();
 const port = 3000;
-
 
 // Express takes all the info that the client added 
 // to the body and makes it available as a nice JavaScript 
@@ -13,7 +15,10 @@ const port = 3000;
 // Parsing JSON means interpreting the data
 server.use(express.json());
 server.use(cors());
-server.use(morgan());
+//server.use(morgan());
+server.use(logger);
+
+server.use('/users', usersRouter);
 
 server.use('/', (req, res) => {
     res.send('API is up and running')
