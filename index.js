@@ -2,7 +2,8 @@ const express = require('express');
 const cors = require('cors');
 //const morgan = require('morgan');
 const logger = require('./middleware/logger');
-const usersRouter = require('./users/userRouter');
+const userRouter = require('./users/userRouter');
+const postRouter = require("./posts/postRouter");
 
 const server = express();
 const port = 3000;
@@ -18,7 +19,8 @@ server.use(cors());
 //server.use(morgan());
 server.use(logger);
 
-server.use('/users', usersRouter);
+server.use('/users', userRouter);
+server.use('/posts', postRouter);
 
 server.use('/', (req, res) => {
     res.send('API is up and running')
